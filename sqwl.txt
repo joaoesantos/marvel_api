@@ -1,0 +1,26 @@
+begin;
+CREATE SEQUENCE character_id_seq START 0;
+
+CREATE TABLE characters (
+   character_id  integer PRIMARY KEY DEFAULT nextval('character_id_seq'),
+   character_name varchar(255),
+   marvel_id integer NOT NULL
+);
+
+CREATE SEQUENCE user_id_seq START 0;
+create table users (
+	user_id  integer PRIMARY KEY DEFAULT nextval('user_id_seq'),
+	user_name varchar(255)
+);
+
+CREATE SEQUENCE fc_id_seq START 0;
+create table favourite_characters (
+	fc_id  integer PRIMARY KEY DEFAULT nextval('fc_id_seq'),
+	user_id integer NOT NULL,
+	character_id integer NOT NULL
+	
+	FOREIGN KEY user_id references characters(user_id),
+	FOREIGN KEY character_id references characters(character_id)
+);
+
+rollback;
